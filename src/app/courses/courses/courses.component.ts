@@ -1,14 +1,22 @@
+import { Course } from './../model/course';
+import { CoursesService } from './../services/courses.service';
 import { Component } from '@angular/core';
-import { Course } from '../model/course';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrl: './courses.component.scss'
+  styleUrl: './courses.component.scss',
 })
 export class CoursesComponent {
+  courses: Observable<Course[]>;
+  displayedColumns = ['name', 'category'];
 
-  courses: Course[] = [{_id: "1", name: "Angular", category: "front-end"}];
-  displayedColumns = ["name", "category"];
+  //coursesService: CoursesService;
 
+  constructor(private coursesService: CoursesService) {
+    //this.coursesService = new CoursesService();
+    this.courses = this.coursesService.list();
+  }
 }
